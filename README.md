@@ -273,19 +273,7 @@ Sample values sit beside each suggested target, so 32.50 under annual\_salary is
 
 **Time spent:** about 4 hours.
 
-**Excerpt 1**
-
-> Prompt: "what is carrier. what do you mean by carrier rejects. explain each step in detail."
->
-> Output (trimmed): "The carrier is the insurance company that actually provides the coverage... the packet says the ops lead's team spends a lot of time finding out why the published file was rejected, but it doesn't say exactly who rejects it."
-
-**Excerpt 2**
-
-> Prompt: "this will not be understood by ppl, what is B A G"
->
-> Output (trimmed): "Build three things in 8 days: value checks that block wrong salaries and coverage, a clearer review screen with bulk approval, and logging controls so customer data stays private."
-
-**Changed:** an early draft named the builds only by the packet's option letters (B, A, G). A reader would not know what those mean, so I rejected it and had it rewritten in plain words (Excerpt 2).
+**Changed:** an early draft named the builds only by the packet's option letters (B, A, G). A reader would not know what those mean, so I rejected it and had it rewritten in plain words.
 
 **Verification:** I recomputed every number independently: 163/200 = 81.5%, mix-adjusted 64% and 87%, 32.50 x 30 x 52 = 50,700, 1,500 x 52 = 78,000, 490/500 = 98%. A separate pass checked word count, em dashes and contradictions.
 
@@ -310,5 +298,3 @@ The prompts I used, in order. Each one built on the answers before it.
 9. "Help me write the AI-use appendix from what we actually did in this conversation. Don't invent any exchange or disagreement."
 
 10. "Act as the interviewer for my 35-minute follow-up. Bring new evidence each round that challenges one of my decisions, and push on whether I would change the plan or hold it."
-
-**Unfinished:** the validation rule set is a starting list. Only one screen is sketched. Thresholds in section D are untested targets.
