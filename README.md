@@ -4,15 +4,15 @@ Harshita · Oct 6, 2026 · Brief: [neustackapp/assignment, APM](https://github.c
 
 ## A. Decision memo
 
-**Decision:** no auto-publish. Spend two weeks catching wrong values before output. Build three things in 8 days: value checks that block wrong salaries and coverage, a clearer review screen with bulk approval, and logging controls so customer data stays private. Keep 2 days in reserve.
+Decision: no auto-publish. Spend two weeks catching wrong values before output. Build three things in 8 days: value checks that block wrong salaries and coverage, a clearer review screen with bulk approval, and logging controls so customer data stays private. Keep 2 days in reserve.
 
 ### Problem
 
 - The copilot speeds up mapping: 4 of 20 minutes. Fixing values takes 11. Investigating rejections is unmeasured and, per the ops lead, worse.
 - The costly failure is a correct column with a wrong value. A 99% salary suggestion was accepted, exported, and wrong.
 - Cost of one miss: if 32.50 hourly is read as annual, "2x salary" coverage becomes $65 instead of about $101,400.
-- **User problem:** analysts cannot see a wrong value, and nothing stops them.
-- **Outcome:** correct records reach the carrier the first time, with less effort per file.
+- User problem: analysts cannot see a wrong value, and nothing stops them.
+- Outcome: correct records reach the carrier the first time, with less effort per file.
 
 ### Evidence
 
@@ -27,7 +27,7 @@ Harshita · Oct 6, 2026 · Brief: [neustackapp/assignment, APM](https://github.c
 - "Published" means a file was generated, not correct or delivered.
 - Model 98% (490/500): five recurring templates, no held-out set. 8 of 10 errors are salary or coverage.
 - Confidence is uncalibrated and was shown to reviewers while approving.
-- **Supported:** the model maps familiar headers well. **Not supported:** confidence as a publish gate.
+- Supported: the model maps familiar headers well. Not supported: confidence as a publish gate.
 
 ### Scope (8 of 10 days)
 
@@ -40,18 +40,18 @@ Harshita · Oct 6, 2026 · Brief: [neustackapp/assignment, APM](https://github.c
 
 - Relabel "Published" to "Output ready". Assumed under half a day, from reserve.
 - Not building now: saved templates, auto-publish, delivery status tracking, separate usage tracking. Manual flow stays behind a flag.
-- **10x direction:** move validation to the employer's upload, so customers answer format questions once and they become saved rules. The value checks built now are the base for that.
+- 10x direction: move validation to the employer's upload, so customers answer format questions once and they become saved rules. The value checks built now are the base for that.
 
 ### Pushback
 
-- **Auto-publish above 95%:** gates on an unvalidated number, in the model's weakest fields, and removes the only human check.
-- **Saved templates for Cedar this month:** Bridgewell has the same headers with a new meaning. Exact matching would publish it silently.
-- **The test that reopens auto-publish:** group the 500 labeled columns by confidence. If 95%+ is at least 99.5% correct on unseen templates, revisit.
+- Auto-publish above 95%: gates on an unvalidated number, in the model's weakest fields, and removes the only human check.
+- Saved templates for Cedar this month: Bridgewell has the same headers with a new meaning. Exact matching would publish it silently.
+- The test that reopens auto-publish: group the 500 labeled columns by confidence. If 95%+ is at least 99.5% correct on unseen templates, revisit.
 
 ### Assumptions
 
-- **Reversible:** bulk approval scope, the relabel, the pilot team.
-- **Blocking:** production logging off before customer data; no record ships with an unconfirmed date format or pay rule.
+- Reversible: bulk approval scope, the relabel, the pilot team.
+- Blocking: production logging off before customer data; no record ships with an unconfirmed date format or pay rule.
 
 ### Clarification questions
 
@@ -103,14 +103,14 @@ Harshita · Oct 6, 2026 · Brief: [neustackapp/assignment, APM](https://github.c
 | Northstar | 0 | Rec 1 Patel: date + annualization rule. Rec 2 de la Cruz: date only. Rec 3 Lee: date + waiver convention | 0 | 3 questions to Northstar HR, one to ops (waivers) |
 | Bridgewell | 0 | Chen, Moss: employment\_status and coverage\_amount missing | Sam Chen (spouse) | Employment status source + plan-code dictionary from Bridgewell |
 
-- **Northstar analyst sees:** "Waiting on customer" with the questions pre-drafted.
-- **Bridgewell analyst sees:** "Saved template no longer fits this file," with Status and Benefit mappings turned off.
+- Northstar analyst sees: "Waiting on customer" with the questions pre-drafted.
+- Bridgewell analyst sees: "Saved template no longer fits this file," with Status and Benefit mappings turned off.
 
 ---
 
 ## C. Workflow slice: salary and coverage validation
 
-**Scope:** upload to the point where every record is approved, pending a named question, or excluded with a reason.
+Scope: upload to the point where every record is approved, pending a named question, or excluded with a reason.
 
 ### Decision flow
 
@@ -140,12 +140,12 @@ Blocks never clear by typing a value. They clear by a rule, a customer answer, o
 
 | Source column | Sample values | Suggested target | Status |
 | --- | --- | --- | --- |
-| DOB | 03/04/1988 · 11/12/1990 · 07/08/1985 | date_of_birth | 🔴 Blocked: format unconfirmed |
-| Base Pay | 32.50 · 72000 · 1500 | annual_salary | 🔴 Blocked: pay basis varies |
-| Life Election | 2x salary · 100000 · Waived | coverage_amount | 🔴 Blocked: text in amount |
-| Tobacco | N · (blank) · Former | smoker | 🟡 Confirm: Former |
-| ZIP | 02108 and 2 more, kept as text | zip | 🟢 Ready |
-| Work State | Not used | none | ⚪ Excluded: not residence |
+| DOB | 03/04/1988 · 11/12/1990 · 07/08/1985 | date_of_birth | Blocked: format unconfirmed |
+| Base Pay | 32.50 · 72000 · 1500 | annual_salary | Blocked: pay basis varies |
+| Life Election | 2x salary · 100000 · Waived | coverage_amount | Blocked: text in amount |
+| Tobacco | N · (blank) · Former | smoker | Confirm: Former |
+| ZIP | 02108 and 2 more, kept as text | zip | Ready |
+| Work State | Not used | none | Excluded: not residence |
 
 **Exceptions, grouped by question**
 
@@ -161,9 +161,9 @@ Sample values sit beside each suggested target, so 32.50 under annual\_salary is
 
 ### Analyst controls
 
-- **Can:** change a mapping, pick a transform, mark "sent to customer," exclude with a reason, undo.
-- **Must confirm:** every blocked column, every transform rule, the record summary before output.
-- **Cannot:** type a value to clear a block, or approve a record missing a required field.
+- Can: change a mapping, pick a transform, mark "sent to customer," exclude with a reason, undo.
+- Must confirm: every blocked column, every transform rule, the record summary before output.
+- Cannot: type a value to clear a block, or approve a record missing a required field.
 - Confidence is hidden until sample values are viewed, to reduce anchoring.
 
 ### Rules (v1)
@@ -231,10 +231,10 @@ Sample values sit beside each suggested target, so 32.50 under annual\_salary is
 | Guardrail | Blocks resolved as "value was fine" / all blocks | Under 20% |
 | Safety | Wrong salary or coverage values exported | Zero |
 
-- **Events:** file started, mapping decision, block raised, block resolved, output generated, downstream outcome. The value checks already store most; downstream outcome logged by hand in pilot.
-- **Observation window:** 14 days after output, matching the primary metric.
-- **Minimum events before judging:** at least 300 employee records from at least 10 files have completed the 14-day window. Below that, report counts only, no rates.
-- **Never recorded:** names, dates of birth, salaries, coverage amounts, raw files, model prompts or responses.
+- Events: file started, mapping decision, block raised, block resolved, output generated, downstream outcome. The value checks already store most; downstream outcome logged by hand in pilot.
+- Observation window: 14 days after output, matching the primary metric.
+- Minimum events before judging: at least 300 employee records from at least 10 files have completed the 14-day window. Below that, report counts only, no rates.
+- Never recorded: names, dates of birth, salaries, coverage amounts, raw files, model prompts or responses.
 
 ### Rollout
 
@@ -244,8 +244,8 @@ Sample values sit beside each suggested target, so 32.50 under annual\_salary is
 | Pilot (weeks 4 to 6) | 2 analysts (1 senior, 1 new), familiar templates, after logging controls verified | Zero wrong money values; guardrails hold |
 | Expand | Unseen templates, more analysts | Same |
 
-- **Rollback:** any wrong salary or coverage exported pauses the pilot. False blocks above 40% for a week sends rules back. One flag returns everyone to manual.
-- **Known vs target:** today's evidence is 8 sessions and a non-random pilot. All thresholds are proposed targets.
+- Rollback: any wrong salary or coverage exported pauses the pilot. False blocks above 40% for a week sends rules back. One flag returns everyone to manual.
+- Known vs target: today's evidence is 8 sessions and a non-random pilot. All thresholds are proposed targets.
 
 ---
 
@@ -259,23 +259,23 @@ Sample values sit beside each suggested target, so 32.50 under annual\_salary is
 
 |  |  |
 | --- | --- |
-| **Decision** | Build bulk approval instead of delivery status and usage tracking |
-| **Bet** | Value errors cause most downstream rejections |
-| **Why unsure** | Supported only indirectly: one analyst story, model error pattern, ops lead's comment |
-| **Cheapest evidence** | Ops lead tags the last 20 rejected files by cause, about 2 hours |
-| **If it disagrees** | Swap bulk approval (3 days) for delivery status (2 days); use the spare day to start usage tracking. Value checks stay either way. |
+| Decision | Build bulk approval instead of delivery status and usage tracking |
+| Bet | Value errors cause most downstream rejections |
+| Why unsure | Supported only indirectly: one analyst story, model error pattern, ops lead's comment |
+| Cheapest evidence | Ops lead tags the last 20 rejected files by cause, about 2 hours |
+| If it disagrees | Swap bulk approval (3 days) for delivery status (2 days); use the spare day to start usage tracking. Value checks stay either way. |
 
 ---
 
 ## F. AI-use appendix
 
-**Tool:** Claude (Anthropic). Used to explain the packet, check the dashboard math, draft sections, and run a final consistency check.
+Tool: Claude (Anthropic). Used to explain the packet, check the dashboard math, draft sections, and run a final consistency check.
 
-**Time spent:** about 4 hours.
+Time spent: about 4 hours.
 
-**Changed:** an early draft named the builds only by the packet's option letters (B, A, G). A reader would not know what those mean, so I rejected it and had it rewritten in plain words.
+Changed: an early draft named the builds only by the packet's option letters (B, A, G). A reader would not know what those mean, so I rejected it and had it rewritten in plain words.
 
-**Verification:** I recomputed every number independently: 163/200 = 81.5%, mix-adjusted 64% and 87%, 32.50 x 30 x 52 = 50,700, 1,500 x 52 = 78,000, 490/500 = 98%. A separate pass checked word count, em dashes and contradictions.
+Verification: I recomputed every number independently: 163/200 = 81.5%, mix-adjusted 64% and 87%, 32.50 x 30 x 52 = 50,700, 1,500 x 52 = 78,000, 490/500 = 98%. A separate pass checked word count, em dashes and contradictions.
 
 The prompts I used, in order. Each one built on the answers before it.
 
