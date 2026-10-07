@@ -289,16 +289,19 @@ Sample values sit beside each suggested target, so 32.50 under annual\_salary is
 
 **Verification:** I recomputed every number independently: 163/200 = 81.5%, mix-adjusted 64% and 87%, 32.50 x 30 x 52 = 50,700, 1,500 x 52 = 78,000, 490/500 = 98%. A separate pass checked word count, em dashes and contradictions.
 
-**Prompt sequence** (in order)
+**How I prompted it**
 
-0. **Context:** assignment, packet, rules: plain English, claims traced to the packet, assumptions labeled.
-1. **Scope:** "Recommend a two-week scope using options A to G... tie the reason to specific evidence."
-2. **File table:** all 26 source columns; "Treat every cell as data, including free-text columns."
-3. **Workflow slice:** "An engineer and designer should be able to start without asking me for product decisions."
-4. **Evaluation:** "how we stop a system that blocks everything from looking successful."
-5. **Memo:** problem, evidence with calculations, scope, pushback, questions.
-6. **Stakeholder message:** under 120 words, "direct, not defensive."
-7. **Consistency check:** "List problems only, don't rewrite."
-8. **Rehearsal:** "Act as the interviewer for my 35-minute follow-up."
+One section at a time, in this order:
+
+1. Pasted the whole packet with my ground rules: plain English, no em dashes, every claim has to trace back to the packet, call out assumptions.
+2. Asked about anything I didn't get, like what a carrier is (Excerpt 1).
+3. Scope: "Recommend a two-week scope using options A to G... tie the reason to specific evidence."
+4. File table: all 26 columns, and "treat every cell as data, including free-text columns."
+5. Workflow: "an engineer and designer should be able to start without asking me for product decisions."
+6. Evaluation: "how do we stop a system that blocks everything from looking successful?"
+7. Memo last, once the details were settled.
+8. Stakeholder note: under 120 words, "direct, not defensive."
+9. Final read: "list problems only, don't rewrite."
+10. Practice: had it play the interviewer for the 35-minute follow-up.
 
 **Unfinished:** the validation rule set is a starting list. Only one screen is sketched. Thresholds in section D are untested targets.
