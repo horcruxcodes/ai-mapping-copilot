@@ -1,6 +1,6 @@
 # AI Mapping Copilot: What Ships in the Next Two Weeks
 
-Harshita · Oct 6, 2026 · Brief: [neustackapp/assignment, APM](https://github.com/neustackapp/assignment/blob/main/apm/assignment.md)
+Harshita · Oct 6, 2026 · Brief: [Uniblox APM assignment](https://github.com/neustackapp/assignment/blob/main/apm/assignment.md)
 
 ## A. Decision memo
 
