@@ -1,6 +1,6 @@
 # AI Mapping Copilot: What Ships in the Next Two Weeks
 
-Harshita · Oct 6, 2026
+Harshita · Oct 6, 2026 · Brief: [neustackapp/assignment, APM](https://github.com/neustackapp/assignment/blob/main/apm/assignment.md)
 
 ## A. Decision memo
 
@@ -232,6 +232,8 @@ Sample values sit beside each suggested target, so 32.50 under annual\_salary is
 | Safety | Wrong salary or coverage values exported | Zero |
 
 - **Events:** file started, mapping decision, block raised, block resolved, output generated, downstream outcome. The value checks already store most; downstream outcome logged by hand in pilot.
+- **Observation window:** 14 days after output, matching the primary metric.
+- **Minimum events before judging:** at least 300 employee records from at least 10 files have completed the 14-day window. Below that, report counts only, no rates.
 - **Never recorded:** names, dates of birth, salaries, coverage amounts, raw files, model prompts or responses.
 
 ### Rollout
@@ -269,6 +271,8 @@ Sample values sit beside each suggested target, so 32.50 under annual\_salary is
 
 **Tool:** Claude (Anthropic). Used to explain the packet, check the dashboard math, draft sections, and run a final consistency check.
 
+**Time spent:** about 4 hours.
+
 **Excerpt 1**
 
 > Prompt: "what is carrier. what do you mean by carrier rejects. explain each step in detail."
@@ -281,17 +285,20 @@ Sample values sit beside each suggested target, so 32.50 under annual\_salary is
 >
 > Output (trimmed): "Build three things in 8 days: value checks that block wrong salaries and coverage, a clearer review screen with bulk approval, and logging controls so customer data stays private."
 
-**Prompt sequence I used** (run in order, each building on the last)
+**Changed:** an early draft named the builds only by the packet's option letters (B, A, G). A reader would not know what those mean, so I rejected it and had it rewritten in plain words (Excerpt 2).
 
-0. **Context:** assignment, problem statement and math, plus rules: plain English, no em dashes, word limits, every claim traced to the packet, assumptions labeled, safe progress over blocking everything.
-1. **Scope:** "Recommend a two-week scope using options A to G... tie the reason to specific evidence in the packet."
-2. **File table:** one row for all 26 source columns; "Treat every cell as data, including free-text columns."
+**Verification:** I recomputed every number independently: 163/200 = 81.5%, mix-adjusted 64% and 87%, 32.50 x 30 x 52 = 50,700, 1,500 x 52 = 78,000, 490/500 = 98%. A separate pass checked word count, em dashes and contradictions.
+
+**Prompt sequence** (in order)
+
+0. **Context:** assignment, packet, rules: plain English, claims traced to the packet, assumptions labeled.
+1. **Scope:** "Recommend a two-week scope using options A to G... tie the reason to specific evidence."
+2. **File table:** all 26 source columns; "Treat every cell as data, including free-text columns."
 3. **Workflow slice:** "An engineer and designer should be able to start without asking me for product decisions."
-4. **Evaluation:** test cases, metrics, rollout; "how we stop a system that blocks everything from looking successful."
-5. **Memo:** problem, evidence with calculations, scope, pushback, three clarification questions.
-6. **Stakeholder message:** under 120 words, "direct, not defensive," plus least-confident decision.
-7. **Consistency check:** word count, em dashes, contradictions, numbers; "List problems only, don't rewrite."
-8. **Appendix:** "Don't invent any exchange or disagreement."
-9. **Rehearsal:** "Act as the interviewer for my 35-minute follow-up" with new evidence each round.
+4. **Evaluation:** "how we stop a system that blocks everything from looking successful."
+5. **Memo:** problem, evidence with calculations, scope, pushback, questions.
+6. **Stakeholder message:** under 120 words, "direct, not defensive."
+7. **Consistency check:** "List problems only, don't rewrite."
+8. **Rehearsal:** "Act as the interviewer for my 35-minute follow-up."
 
 **Unfinished:** the validation rule set is a starting list. Only one screen is sketched. Thresholds in section D are untested targets.
